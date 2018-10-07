@@ -18,6 +18,7 @@ static inline double log_base(float base, float num) {
 static inline int findDigitInNumerics (const char * numicsStr, char digit) {
 	for ( int curNumicsInd = 0; curNumicsInd < BBIA_INTEGER_SIZE;
 		curNumicsInd++)
+
 	if (numicsStr [curNumicsInd] == digit)
 		return curNumicsInd;
 
@@ -29,10 +30,10 @@ int stuaa_bitflag (int num) {
 	if ( !(num >= 0 && num <= BBIA_INTEGER_SIZE) )
 		return 0;
 
-	if (BBIA_INTEGER_SIZE <= 32 || num <= 32) {
+	if (BBIA_INTEGER_SIZE < 32 || num < 32) {
 
-		const int bitDigit[] = {
-			0, 0x01, 0x02, 0x04, 0x08,
+		const int bitDigit[] = { 0,
+			0x1, 0x2, 0x4, 0x8,
 			0x10, 0x20, 0x40, 0x80,
 			0x100, 0x200, 0x400, 0x800,
 			0x1000, 0x2000, 0x4000, 0x8000,
@@ -63,6 +64,18 @@ char * stuaa_toBase (int sinteger, int base) {
 	char * result = malloc (sizeof(char) * BBIA_INTEGER_SIZE + 1);
 	if (result == NULL) abort();
 
+	if (base == 2)
+		for (
+			int currentBit = 1;
+
+			currentBit <= BBIA_INTEGER_SIZE;
+
+			result[BBIA_INTEGER_SIZE-currentBit] =
+			(sinteger & stuaa_bitflag(currentBit)) ? '1' : '0',
+			currentBit++
+		);
+
+
 	return result;
 }
 
@@ -73,8 +86,21 @@ int stuaa_fromBase (char * integer, int base) {
 		return -1;
 	}
 
+	int result = 0;
 
-	return -1;
+	if (base == 2)
+		for (
+			int currentBit = 1;
+
+			currentBit <= BBIA_INTEGER_SIZE;
+
+			result |= (integer[BBIA_INTEGER_SIZE-currentBit] == '1')
+			? stuaa_bitflag(currentBit) : 0,
+			currentBit++
+		);
+
+
+	return result;
 }
 
 char * stuaa_toBase_Clang (int sinteger, int base) {
@@ -84,7 +110,6 @@ char * stuaa_toBase_Clang (int sinteger, int base) {
 		return NULL;
 	}
 
-	// TODO
 	unsigned integer = sinteger;
 
 	char * result = malloc (sizeof(char) * BBIA_INTEGER_SIZE + 1);
@@ -110,7 +135,6 @@ int stuaa_fromBase_Clang (char * integer, int base) {
 		return -1;
 	}
 
-	// TODO
 	unsigned int result = 0;
 
 	for (

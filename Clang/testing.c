@@ -13,10 +13,10 @@ int main (int argc, char * argv[]) {
 	// int secondTest = 0;
 	int secondTest = -1;
 
-	secondTest &= ~stuaa_bitflag(31);
+	// secondTest &= ~stuaa_bitflag(32);
 
 
-	char * secondTestToBase = stuaa_toBase_Clang (secondTest, 2);
+	char * secondTestToBase = stuaa_toBase (secondTest, 2);
 
 	for (int i = 0; i < BBIA_INTEGER_SIZE; i++)
 	putchar ( (secondTestToBase[i] != '\0') ? secondTestToBase[i] : '0' );
