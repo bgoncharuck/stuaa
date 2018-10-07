@@ -31,21 +31,10 @@ char * stuaa_toBase (int sinteger, int base) {
 		return NULL;
 	}
 
-	// TODO
-	unsigned integer = sinteger;
-
 	char * result = malloc (sizeof(char) * BBIA_INTEGER_SIZE + 1);
 	if (result == NULL) abort();
 
-	for (
-		int start = ceil ( log_base (base, integer) ) - 1;
 
-		integer != 0;
-
-		result[start] = numerics [ integer % base ],
-		integer /= base,
-		start--
-	);
 
 	return result;
 }
