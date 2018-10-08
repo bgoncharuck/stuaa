@@ -16,12 +16,12 @@ int main (int argc, char * argv[]) {
 	// secondTest &= ~stuaa_bitflag(32);
 
 
-	char * secondTestToBase = stuaa_toBase (secondTest, 2);
+	char * secondTestToBase = stuaa_toBase (secondTest, 16);
 
 	for (int i = 0; i < BBIA_INTEGER_SIZE; i++)
 	putchar ( (secondTestToBase[i] != '\0') ? secondTestToBase[i] : '0' );
 
-	printf ("\nin signed %i\n", stuaa_fromBase (secondTestToBase, 2));
+	// printf ("\nin signed %i\n", stuaa_fromBase (secondTestToBase, 2));
 
 	if (secondTestToBase) free(secondTestToBase);
 	/*

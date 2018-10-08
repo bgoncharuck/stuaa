@@ -11,6 +11,12 @@
 static const char * numerics =
 "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+int intPow (int value, int pow) {
+	if (pow != 1)
+		return value * intPow(value, pow - 1);
+	else return value;
+}
+
 static inline double log_base(float base, float num) {
 	return log2(num) / log2(base);
 }
@@ -64,19 +70,24 @@ char * stuaa_toBase (int sinteger, int base) {
 	char * result = malloc (sizeof(char) * BBIA_INTEGER_SIZE + 1);
 	if (result == NULL) abort();
 
-	if (base == 2)
-		for (
-			int currentBit = 1;
+	for (
+		int currentBit = 1;
 
-			currentBit <= BBIA_INTEGER_SIZE;
+		currentBit <= BBIA_INTEGER_SIZE;
 
-			result[BBIA_INTEGER_SIZE-currentBit] =
-			(sinteger & stuaa_bitflag(currentBit)) ? '1' : '0',
-			currentBit++
-		);
+		result[BBIA_INTEGER_SIZE-currentBit] =
+		(sinteger & stuaa_bitflag(currentBit)) ? '1' : '0',
+		currentBit++
+	);
 
+	if (base == 2) 	return result;
 
-	return result;
+	return stuaa_toBase_from2Base (result, base);
+}
+
+char * stuaa_toBase_from2Base (char * buffer, int base) {
+
+	return buffer;
 }
 
 int stuaa_fromBase (char * integer, int base) {
@@ -103,14 +114,12 @@ int stuaa_fromBase (char * integer, int base) {
 	return result;
 }
 
-char * stuaa_toBase_Clang (int sinteger, int base) {
+char * stuaa_toBase_Clang (unsigned integer, int base) {
 
 	if ( !(base < 65 && base > 1) ) {
 		throw ("The base must be from 2 to 64");
 		return NULL;
 	}
-
-	unsigned integer = sinteger;
 
 	char * result = malloc (sizeof(char) * BBIA_INTEGER_SIZE + 1);
 	if (result == NULL) abort();
