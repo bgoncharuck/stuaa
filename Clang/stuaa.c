@@ -88,6 +88,20 @@ void stuaa_sign_change (int * toChange) {
 
 int stuaa_outofbounders_max (int to, int test) {
 
+	if (to >= 0)
+		if (to < INT_MAX - test) return 0;
+
+	else if (to < 0)
+		if (to < -1 - test) return 0;
+
+	return -1;
+}
+
+int stuaa_outofbounders_min (int to, int test) {
+
+	// if (to )
+
+	return 0;
 }
 
 int stuaa_outofbounders_min (int to, int test) {
