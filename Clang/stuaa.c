@@ -17,7 +17,7 @@ int intPow (int value, int pow) {
 	else return value;
 }
 
-static inline double log_base(float base, float num) {
+static inline double log_base(double base, double num) {
 	return log2(num) / log2(base);
 }
 
@@ -74,6 +74,24 @@ void stuaa_shiftr (int * self, int value) {
 		signedDebug = 0;
 		*self |= stuaa_bitflag(BBIA_INTEGER_SIZE-value);
 	}
+}
+
+void stuaa_sign_change (int * toChange) {
+
+	if (!toChange || *toChange == 0) return;
+
+	if (*toChange < 0)
+		*toChange = ~*toChange + 1;
+	else if (*toChange > 0)
+		*toChange = ~(*toChange - 1);
+}
+
+int stuaa_outofbounders_max (int to, int test) {
+
+}
+
+int stuaa_outofbounders_min (int to, int test) {
+
 }
 
 char * stuaa_toBase (int sinteger, int base) {

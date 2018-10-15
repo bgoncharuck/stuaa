@@ -1,7 +1,18 @@
 #pragma once
 
 #define BBIA_INTEGER_SIZE 32
+
+/*LEVEL*/
+/*@CHOOSE size here*/
+#define BBIA_LEVEL_COUNT BBIA_BITS_512
+#define BBIA_LEVEL_TOP -1 + BBIA_LEVEL_COUNT
+
+/*DIGIT*/
+// signed int 1111...n (n == BBIA_INTEGER_SIZE)
 #define BBIA_LEVEL_IS_FULL -1
+#define BBIA_LEVEL_IS_PFULL INT_MAX
+#define BBIA_LEVEL_IS_NFULL INT_MIN
+// signed int 0000...n (n == BBIA_INTEGER_SIZE)
 #define BBIA_LEVEL_IS_EMPTY 0
 
 int intPow (int value, int pow) ;
