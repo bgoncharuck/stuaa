@@ -21,6 +21,10 @@ int stuaa_bitflag (int num) ;
 
 void stuaa_shiftr (int * self, int value) ;
 
+int stuaa_outofbounders_max (int to, int test) ;
+
+int stuaa_outofbounders_min (int to, int test) ;
+
 char * stuaa_toBase_Clang (unsigned integer, int base) ;
 
 int stuaa_fromBase_Clang (char * integer, int base) ;

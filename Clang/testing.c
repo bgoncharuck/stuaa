@@ -11,21 +11,41 @@ int main (int argc, char * argv[]) {
 	// int secondTest = BBIA_LEVEL_IS_FULL;
 	// int secondTest = INT_MAX;
 	// int secondTest = 0;
-	int secondTest = -1;
+	// int secondTest = -1;
 
 	// secondTest &= ~stuaa_bitflag(32);
 
 
-	char * secondTestToBase = stuaa_toBase (secondTest, 16);
+	// char * secondTestToBase = stuaa_toBase (secondTest, 16);
 
-	for (int i = 0; i < BBIA_INTEGER_SIZE; i++)
-	putchar ( (secondTestToBase[i] != '\0') ? secondTestToBase[i] : '0' );
+	// for (int i = 0; i < BBIA_INTEGER_SIZE; i++)
+	// putchar ( (secondTestToBase[i] != '\0') ? secondTestToBase[i] : '0' );
 
 	// printf ("\nin signed %i\n", stuaa_fromBase (secondTestToBase, 2));
 
-	if (secondTestToBase) free(secondTestToBase);
+	// if (secondTestToBase) free(secondTestToBase);
 	/*
 	*/
+
+	int outOfBoundersTest_max_to = BBIA_LEVEL_IS_PFULL;
+	int outOfBoundersTest_max_test = -6;
+
+	int outOfBoundersTest_min_to = BBIA_LEVEL_IS_PFULL;
+	int outOfBoundersTest_min_test = BBIA_LEVEL_IS_NFULL;
+
+	printf ("Max is %s\n", (
+		stuaa_outofbounders_max(
+			outOfBoundersTest_max_to,
+			outOfBoundersTest_max_test
+		)
+	) ? "worked" : "not worked");
+
+	printf ("Min is %s\n", (
+	stuaa_outofbounders_min(
+			outOfBoundersTest_min_to,
+			outOfBoundersTest_min_test
+		)
+	) ? "worked" : "not worked");
 
 	return EXIT_SUCCESS;
 }

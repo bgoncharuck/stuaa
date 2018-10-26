@@ -119,7 +119,7 @@ static int outofbounders_min_bitDecay (int to, int test, int bitDec) {
 
 int stuaa_outofbounders_min (int to, int test) {
 
-	return outofbounders_min_bitDecay (int to, int test, BBIA_INTEGER_SIZE);
+	return outofbounders_min_bitDecay (to, test, BBIA_INTEGER_SIZE);
 }
 
 char * stuaa_toBase (int sinteger, int base) {
