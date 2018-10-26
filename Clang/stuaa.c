@@ -90,12 +90,12 @@ static int outofbounders_max_bitDecay (int to, int test, int bitDec) {
 
 	if (bitDec < 1) return 0;
 
-	if (to & bitflag (bitDec) && test & bitflag (bitDec)) return 1;
+	if (to & stuaa_bitflag (bitDec) && test & stuaa_bitflag (bitDec)) return 1;
 
-	else if (to & bitflag (bitDec) || test & bitflag (bitDec))
-	 	if (to & bitflag (bitDec-1) && test & bitflag (bitDec-1)) return 1;
+	else if (to & stuaa_bitflag (bitDec) || test & stuaa_bitflag (bitDec))
+	 	if (to & stuaa_bitflag (bitDec-1) && test & stuaa_bitflag (bitDec-1)) return 1;
 
-	else if (to & bitflag (bitDec) || test & bitflag (bitDec))
+	else if (to & stuaa_bitflag (bitDec) || test & stuaa_bitflag (bitDec))
 		return outofbounders_max_bitDecay (to, test, bitDec - 2);
 
 	return 0;
@@ -106,18 +106,22 @@ int stuaa_outofbounders_max (int to, int test) {
 	return outofbounders_max_bitDecay (to,test, BBIA_INTEGER_SIZE);
 }
 
-static int outofbounders_min_bitPrime (int to, int test, int bitPri) {
+static int outofbounders_min_bitDecay (int to, int test, int bitDec) {
 
-	if (bitPri > BBIA_INTEGER_SIZE) return 0;
+	if (bitDec < 1) return 0;
+
+	if (~(to & stuaa_bitflag (bitDec)) && test & stuaa_bitflag (bitDec)) return 1;
+
+	else return outofbounders_min_bitDecay (to, test, bitDec - 1);
 
 	return 0;
 }
 
 int stuaa_outofbounders_min (int to, int test) {
 
-
-	return outofbounders_min_bitPrime (int to, int test, 1);
+	return outofbounders_min_bitDecay (int to, int test, BBIA_INTEGER_SIZE);
 }
+
 char * stuaa_toBase (int sinteger, int base) {
 
 	if ( !(base < 65 && base > 1) ) {
