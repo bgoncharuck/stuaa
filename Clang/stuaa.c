@@ -86,27 +86,38 @@ void stuaa_sign_change (int * toChange) {
 		*toChange = ~(*toChange - 1);
 }
 
+static int outofbounders_max_bitDecay (int to, int test, int bitDec) {
+
+	if (bitDec < 1) return 0;
+
+	if (to & bitflag (bitDec) && test & bitflag (bitDec)) return 1;
+
+	else if (to & bitflag (bitDec) || test & bitflag (bitDec))
+	 	if (to & bitflag (bitDec-1) && test & bitflag (bitDec-1)) return 1;
+
+	else if (to & bitflag (bitDec) || test & bitflag (bitDec))
+		return outofbounders_max_bitDecay (to, test, bitDec - 2);
+
+	return 0;
+}
+
 int stuaa_outofbounders_max (int to, int test) {
 
-	if (to >= 0)
-		if (to < BBIA_LEVEL_IS_PFULL - test) return 0;
+	return outofbounders_max_bitDecay (to,test, BBIA_INTEGER_SIZE);
+}
 
-	else if (to < 0)
-		if (to < BBIA_LEVEL_IS_FULL - test) return 0;
+static int outofbounders_min_bitPrime (int to, int test, int bitPri) {
 
-	return 1;
+	if (bitPri > BBIA_INTEGER_SIZE) return 0;
+
+	return 0;
 }
 
 int stuaa_outofbounders_min (int to, int test) {
 
-	if (to < 0)
-		if (to > BBIA_LEVEL_IS_NFULL + test) return 0;
-	else if (to >= 0)
-		if (to > BBIA_LEVEL_IS_EMPTY + test) return 0;
 
-	return 1;
+	return outofbounders_min_bitPrime (int to, int test, 1);
 }
-
 char * stuaa_toBase (int sinteger, int base) {
 
 	if ( !(base < 65 && base > 1) ) {
