@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 
 int main (int argc, char * argv[]) {
 
@@ -25,7 +26,6 @@ int main (int argc, char * argv[]) {
 
 	// if (secondTestToBase) free(secondTestToBase);
 	/*
-	*/
 
 	int outOfBoundersTest_max_to = BBIA_LEVEL_IS_PFULL;
 	int outOfBoundersTest_max_test = -6;
@@ -46,6 +46,15 @@ int main (int argc, char * argv[]) {
 			outOfBoundersTest_min_test
 		)
 	) ? "worked" : "not worked");
+	*/
+
+	int toBaseTest = BBIA_LEVEL_IS_FULL;
+
+	for (int i = 2; i <= 32; i *= 2) {
+		char * inBase = stuaa_toBase (toBaseTest, i);
+		printf ("In %2d is %s\n", i, inBase);
+		free (inBase);
+	}
 
 	return EXIT_SUCCESS;
 }

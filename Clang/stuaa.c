@@ -1,5 +1,4 @@
 #include "stuaa.h"
-#include "bbia.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,7 +9,7 @@
 #define throw(MSG) fprintf(stderr, "%s\n", MSG)
 
 static const char * numerics =
-"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$&()*+,;./:;<=>?@[]^-_'{|}~";
 
 static inline double log_base(double base, double num) {
 	return log2(num) / log2(base);
@@ -117,6 +116,15 @@ int stuaa_outofbounders_min (int to, int test) {
 	return outofbounders_min_bitDecay (to, test, BBIA_INTEGER_SIZE);
 }
 
+static inline int __isPowerOfTwo (int value) {
+
+	for (int curBit = 3; curBit <= BBIA_INTEGER_SIZE; curBit++)
+		if (value == stuaa_bitflag (curBit))
+			return curBit - 1;
+
+	return -2;
+}
+
 char * stuaa_toBase (int sinteger, int base) {
 
 	if ( !(base < 65 && base > 1) ) {
@@ -139,6 +147,28 @@ char * stuaa_toBase (int sinteger, int base) {
 			currentBit++
 		);
 
+		return result;
+	}
+
+	int powerOfTwo = __isPowerOfTwo (base);
+	if (powerOfTwo != -2) {
+
+		int start = ceil ( log_base (base, (unsigned)sinteger) ) - 1;
+
+		char * result = calloc (sizeof(char), start + 2);
+		if (result == NULL) abort();
+
+		int tempValue = 0;
+		for (int curBit = 0; curBit < BBIA_INTEGER_SIZE; curBit += powerOfTwo) {
+			for (int curBitInTwo = 1; curBitInTwo <= powerOfTwo; curBitInTwo++) {
+				tempValue |=
+				(stuaa_bitflag(curBit + curBitInTwo) & sinteger)
+				? stuaa_bitflag (curBitInTwo) : 0;
+			}
+
+			result[start--] = numerics[tempValue];
+			tempValue = 0;
+		}
 
 		return result;
 	}
@@ -169,6 +199,13 @@ int stuaa_fromBase (char * integer, int base) {
 
 
 		return result;
+	}
+
+	int powerOfTwo = __isPowerOfTwo (base);
+	if (powerOfTwo != -2) {
+
+
+
 	}
 
 	return stuaa_fromBase_Clang (integer, base);
