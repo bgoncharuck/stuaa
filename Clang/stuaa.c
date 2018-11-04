@@ -204,8 +204,14 @@ int stuaa_fromBase (char * integer, int base) {
 	int powerOfTwo = __isPowerOfTwo (base);
 	if (powerOfTwo != -2) {
 
+		int result = 0;
+		int size = strlen(integer);
 
+		for (int curChar = size-1; curChar >= 0; curChar--) {
+			for (int curBit = 1; curBit <= powerOfTwo; curBit++) {
 
+			}
+		}
 	}
 
 	return stuaa_fromBase_Clang (integer, base);
