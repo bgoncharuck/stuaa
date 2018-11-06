@@ -56,5 +56,10 @@ int main (int argc, char * argv[]) {
 		free (inBase);
 	}
 
+	char * inBase = stuaa_toBase (toBaseTest, 16);
+	int fromBaseTest = stuaa_fromBase (inBase, 16);
+	free (inBase);
+	printf("From base test : %u\n", fromBaseTest);
+
 	return EXIT_SUCCESS;
 }

@@ -206,12 +206,18 @@ int stuaa_fromBase (char * integer, int base) {
 
 		int result = 0;
 		int size = strlen(integer);
+		int tempValue = 0;
 
-		for (int curChar = size-1; curChar >= 0; curChar--) {
+		for (int curChar = size-1, curMult = 0; curChar >= 0; curChar--, curMult++) {
+			tempValue = findDigitInNumerics (numerics, integer[curChar]);
+
 			for (int curBit = 1; curBit <= powerOfTwo; curBit++) {
-
+				result |= (tempValue & stuaa_bitflag(curBit)) ?
+				stuaa_bitflag (curBit + powerOfTwo * curMult) : 0;
 			}
 		}
+
+		return result;
 	}
 
 	return stuaa_fromBase_Clang (integer, base);
