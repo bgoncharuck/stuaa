@@ -25,28 +25,6 @@ int main (int argc, char * argv[]) {
 	// printf ("\nin signed %i\n", stuaa_fromBase (secondTestToBase, 2));
 
 	// if (secondTestToBase) free(secondTestToBase);
-	/*
-
-	int outOfBoundersTest_max_to = BBIA_LEVEL_IS_PFULL;
-	int outOfBoundersTest_max_test = -6;
-
-	int outOfBoundersTest_min_to = BBIA_LEVEL_IS_PFULL;
-	int outOfBoundersTest_min_test = BBIA_LEVEL_IS_NFULL;
-
-	printf ("Max is %s\n", (
-		stuaa_outofbounders_max(
-			outOfBoundersTest_max_to,
-			outOfBoundersTest_max_test
-		)
-	) ? "worked" : "not worked");
-
-	printf ("Min is %s\n", (
-	stuaa_outofbounders_min(
-			outOfBoundersTest_min_to,
-			outOfBoundersTest_min_test
-		)
-	) ? "worked" : "not worked");
-	*/
 
 	int toBaseTest = BBIA_LEVEL_IS_FULL;
 
@@ -60,6 +38,32 @@ int main (int argc, char * argv[]) {
 	int fromBaseTest = stuaa_fromBase (inBase, 16);
 	free (inBase);
 	printf("From base test : %u\n", fromBaseTest);
+	/*
+	*/
+
+	int outOfBoundersTest_max_to = BBIA_LEVEL_IS_PFULL;
+	int outOfBoundersTest_max_test = -6;
+
+	// int outOfBoundersTest_min_to = BBIA_LEVEL_IS_PFULL;
+	// int outOfBoundersTest_min_test = BBIA_LEVEL_IS_NFULL;
+	int outOfBoundersTest_min_to = 586;
+	int outOfBoundersTest_min_test = 600;
+
+	printf ("Max is %s\n", (
+	stuaa_outofbounders_max(
+	outOfBoundersTest_max_to,
+	outOfBoundersTest_max_test
+	)
+	) ? "worked" : "not worked");
+
+	puts(stuaa_toBase_Clang(outOfBoundersTest_min_to,2));
+	puts(stuaa_toBase_Clang(outOfBoundersTest_min_test,2));
+	printf ("Min is %s\n", (
+	stuaa_outofbounders_min(
+	outOfBoundersTest_min_to,
+	outOfBoundersTest_min_test
+	)
+	) ? "worked" : "not worked");
 
 	return EXIT_SUCCESS;
 }
